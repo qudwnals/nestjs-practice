@@ -3,6 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { TestbordModule } from './testbord/testbord.module';
+import {TestbordEntity} from "./testbord/entities/testbord.entity";
 
 @Module({
   imports: [
@@ -16,9 +18,12 @@ import { ConfigModule } from '@nestjs/config';
       username: process.env.RDS_USER,
       password: process.env.RDS_PSWORD,
       database: process.env.RDS_DATABASE,
-      entities: [],
-      synchronize: false,
+      entities: [TestbordEntity],
+      synchronize: true,
+      autoLoadEntities : true,
+      logging :true
     }),
+    TestbordModule,
   ],
   controllers: [AppController],
   providers: [AppService],
